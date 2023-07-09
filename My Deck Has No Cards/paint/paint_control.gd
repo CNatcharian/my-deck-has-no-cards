@@ -35,7 +35,7 @@ var undo_element_list_num = -1
 
 # The current brush settings: The mode, size, color, and shape we have currently selected.
 var brush_mode = BrushModes.PENCIL
-var brush_size = 32
+var brush_size = 8
 var brush_color = Color.BLACK
 var brush_shape = BrushShapes.CIRCLE;
 
@@ -43,15 +43,16 @@ var brush_shape = BrushShapes.CIRCLE;
 # in the _draw function for more details).
 var bg_color = Color.WHITE
 
-@onready var drawing_area = $"../DrawingAreaBG"
-
+@onready var drawing_area = self
+@onready var manager = $"../../.." as Manager
 
 func _process(_delta):
 	var mouse_pos = get_viewport().get_mouse_position()
 
 	# Check if the mouse is currently inside the canvas/drawing-area.
-	var drawing_area_rect := Rect2(drawing_area.position, drawing_area.size)
-	is_mouse_in_drawing_area = drawing_area_rect.has_point(mouse_pos)
+	var drawing_area_rect := Rect2(drawing_area.global_position, drawing_area.size)
+	is_mouse_in_drawing_area = drawing_area_rect.has_point(mouse_pos) and manager.state == Manager.State.ART
+	# print("can draw: " + str(drawing_area_rect.has_point(mouse_pos)) + " and " + str(manager.state))
 
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		# If we do not have a position for when the mouse was first clicked, then this must
@@ -100,7 +101,7 @@ func check_if_mouse_is_inside_canvas():
 		# Make sure the mouse click starting position is inside the canvas.
 		# This is so if we start out click outside the canvas (say chosing a color from the color picker)
 		# and then move our mouse back into the canvas, it won't start painting.
-		if Rect2(drawing_area.position, drawing_area.size).has_point(mouse_click_start_pos):
+		if Rect2(drawing_area.global_position, drawing_area.size).has_point(mouse_click_start_pos):
 			# Make sure the current mouse position is inside the canvas.
 			if is_mouse_in_drawing_area:
 				return true
@@ -145,7 +146,7 @@ func add_brush(mouse_pos, type):
 	# Populate the dictionary with values based on the global brush variables.
 	# We will override these as needed if the brush is a rectange or circle.
 	new_brush.brush_type = type
-	new_brush.brush_pos = mouse_pos
+	new_brush.brush_pos = mouse_pos - self.global_position
 	new_brush.brush_shape = brush_shape
 	new_brush.brush_size = brush_size
 	new_brush.brush_color = brush_color
@@ -233,7 +234,7 @@ func save_picture(path):
 	# Get the viewport image.
 	var img = get_viewport().get_texture().get_image()
 	# Crop the image so we only have canvas area.
-	var cropped_image = img.get_region(Rect2(drawing_area.position, drawing_area.size))
+	var cropped_image = img.get_region(Rect2(drawing_area.global_position, drawing_area.size))
 
 	# Save the image with the passed in path we got from the save dialog.
 	cropped_image.save_png(path)

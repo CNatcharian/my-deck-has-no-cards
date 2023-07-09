@@ -1,0 +1,77 @@
+~ resolve
+
+Probo: Behold my monster, [color=orange]{{GameState.cardname}}[/color]!
+if GameState.cost_too_great()
+	=> broke
+else
+	=> type_matchup
+
+~ broke
+Probo: Now, Antago! Watch me as I...
+Antago: As you what, Proboy?
+Probo: [font_size=8]...i lack the money to play this card.[/font_size]
+Antago: Oh, I'm sorry, Proboy, I didn't quite hear you. Could you speak up a bit?
+Probo: I... [shake]I lack the money to play this card![/shake]
+Antago: Sounds like you're just too [color=red]BROKE[/color], PROBOY!
+=> defeat
+
+~ type_matchup
+Probo: My monster has entered the field. Now we shall duel!
+if GameState.type_matchup() == 0
+	Probo: And look! Our monsters share the same type!
+	Probo: Thus they will each deal damage equal to their power to the other!
+else
+	Probo: And look! My monster is of the {{GameState.get_type()}} type!
+	if GameState.type_matchup() == 1:
+		Antago: Which is beaten by my {{GameState.get_enemy_type()}}-type monster, meaning I deal [color=red]DOUBLE DAMAGE[/color] to your monster!
+		Probo: ...
+		Antago: Stoopid.
+	else
+		Probo: This means it beats your {{GameState.get_enemy_type()}}-type monster, dealing [color=red]DOUBLE DAMAGE[/color]!
+		Antago: H-hold on! That doesn't mean anything!
+Probo: And now, I attack with my monster, [color=orange]{{GameState.cardname}}[/color]!
+while GameState.both_are_alive()
+	do GameState.deal_damage()
+	if GameState.both_are_alive()
+		Probo: And they shall do it again!
+
+if GameState.dead() and GameState.enemy_dead()
+	=> tie
+elif GameState.dead()
+	Probo: [font_size=32][shake]NOOOO! [color=orange]{{GameState.cardname}}[/color]![/shake][/font_size]
+	Antago: HAHAHA! It seems your {{GameState.cardname}} has CRUMPLED before the POWER of my {{GameState.enemy_cardname}}!
+	=> defeat
+=> victory
+
+~ tie
+set GameState.outcome = "tie"
+# shot 12: 
+Probo: See! My monster has defeated yours!
+Antago: Au contraire! My monster has ALSO defeated YOURS!
+# shot 13: probo shocked
+Probo: No... This... [shake]can't be![/shake]
+# shot 14: antago cackles
+Antago: [shake]AAAAAHAHAHAHA![/shake] Now I can finally end this with...
+# shot 14-2,3: antago draws no cards
+=> END
+
+~ victory
+set GameState.outcome = "victory"
+# shot 15: probo cheers
+Probo: Huzzah! My monster, [color=orange]{{GameState.cardname}}[/color] has won!
+Probo: And they won with exclusively the power of friendship and nothing else!
+# shot 16: antago malds
+Antago: [shake]AAAAAAGH![/shake] IT'S NOT POSSIBLE! NO ONE'S EVER SUMMONED...
+# shot 16-2,3: antago stops, then squints at card
+# 17: closeup antago DISGUSTED
+# 18: behind antago, probo reaches for bat
+# 18-2: WHACK 
+=> END
+
+~ defeat
+set GameState.outcome = "defeat"
+do Anime.shot("9")
+Probo: I'm sorry [color=orange]{{GameState.cardname}}[/color]... everyone... I have failed you.
+# shot 19: antago points maniacally
+Antago: Go, {{GameState.enemy_cardname}}! Send him to the BAD PLACE!!!
+=> END

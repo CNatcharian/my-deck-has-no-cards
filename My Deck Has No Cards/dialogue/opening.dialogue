@@ -1,0 +1,56 @@
+~ opening
+
+# shot 1: far shot of arena
+do Anime.shot("1")
+Announcer: We now return to the final duel of the final round of the Super Mega Tournament Of Ultimate Doom!
+# shot 2: sleeping crowd
+do Anime.shot("2")
+Announcer: It's now minute 76 of this epic confrontation!
+Announcer: And it's ANYONE'S GAME!
+# shot 3: Antago laughing, front
+do Anime.shot("3")
+do Anime.shake(0.2)
+Antago: [shake]HAHAHA![/shake] At last, victory is within my grasp! And it was never even close.
+# shot 4: antago looking at probo, over antago's shoulder
+do Anime.shot("4")
+Antago: My ace monster, {{GameState.enemy_cardname}}, has destroyed every last one of your cards.
+Antago: Probo, my archnemesis, today is the day I finally defeat you!
+# shot 5: probo points
+do Anime.shot("5")
+do Anime.shake(0.2)
+Probo: Not so fast, Antago! My heart is in my cards, and inside them I will find my victory!
+# shot 6: actually 10, antago gloats
+do Anime.shot("10")
+Antago: Spare me the [shake]power of friendship[/shake] monologue, Proboy, and draw your last stupid card so I can beat you, stupid!
+# shot 6: probo closes his eyes
+do Anime.shot("6")
+Probo: This is it. My final turn. I must have faith in my friends, and draw from my deck...
+do wait(1.0)
+# 6: probo looks down
+do Anime.shot("6-2")
+do wait(0.5)
+# 7: empty deckbox
+do Anime.shot("7")
+do wait(1)
+# 8: ultimate despair
+do Anime.shot("8")
+do Anime.shake(0.2)
+Probo: [font_size=32][shake]MY DECK HAS NO CARDS![/shake][/font_size]
+# 9: sadness
+do Anime.shot("9")
+Probo: Is this it? Is this really where my journey... no, my [color=red]destiny[/color]... takes me? How could it end like this? Where did I go wrong? Do I dare question the bonds between my friends and my cards?
+# 10: antago gloats 
+do Anime.shot("10")
+Antago: Considering your strategy, eh? Don't worry, you haven't a chance! In fact, I'm so confident, I'll do a bit of light reading while I wait for you to play.
+# 11: antago holds up book
+do Anime.shot("10-2")
+do wait(1.5)
+# 12: probo thinks
+do Anime.shot("11")
+do wait(1.5)
+# 13: probo gets an idea
+do Anime.shot("11-2")
+do Anime.shake(0.2)
+Probo: I must act quickly. I must create the card that will destroy him!
+do Anime.end()
+=> END
