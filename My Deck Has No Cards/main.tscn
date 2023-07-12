@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://bfpvchu855olk"]
+[gd_scene load_steps=51 format=3 uid="uid://bfpvchu855olk"]
 
 [ext_resource type="Texture2D" uid="uid://sxmfx71ud4gb" path="res://ui/frame_antago.png" id="1_frwml"]
 [ext_resource type="Script" path="res://manager.gd" id="1_mux2o"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" path="res://paint/paint_control.gd" id="7_hk1q2"]
 [ext_resource type="Texture2D" uid="uid://djkdo10ww0qlb" path="res://ui/icon_wet.png" id="8_wpl02"]
 [ext_resource type="Texture2D" uid="uid://cyi58b1fxftqq" path="res://ui/sidebar.png" id="9_0dkmp"]
+[ext_resource type="Texture2D" uid="uid://bydjiqlw2jwty" path="res://ui/ded.png" id="9_fyph6"]
 [ext_resource type="Script" path="res://NumberOption.gd" id="10_xhf68"]
 [ext_resource type="Script" path="res://StringOption.gd" id="11_ox5hm"]
 [ext_resource type="Texture2D" uid="uid://crwufvqpvpb0v" path="res://ui/icon_dirt.png" id="12_bj8x1"]
@@ -29,6 +30,10 @@
 [ext_resource type="Texture2D" uid="uid://dpbcan7turcyj" path="res://ui/portrait_probo.png" id="26_l4pqt"]
 [ext_resource type="Texture2D" uid="uid://d4nevlu55a56j" path="res://anime/shot11-2.png" id="27_6wfos"]
 [ext_resource type="PackedScene" uid="uid://bl4awo146rcys" path="res://dialogue_ui.tscn" id="27_kkjj8"]
+[ext_resource type="Texture2D" uid="uid://cquvnoabs64gb" path="res://ui/ending_defeat.png" id="30_5ymaa"]
+[ext_resource type="LabelSettings" uid="uid://cxnpgi71251a" path="res://labelsettings_ending.tres" id="31_801od"]
+[ext_resource type="Texture2D" uid="uid://cb6fbefhxbgpx" path="res://ui/ending_tie.png" id="32_48q5l"]
+[ext_resource type="Texture2D" uid="uid://cvpigngwjfthf" path="res://anime/shot18-2.png" id="33_6flua"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_hyn48"]
 font = ExtResource("4_d5xqc")
@@ -254,6 +259,54 @@ tracks/15/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/16/type = "value"
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/path = NodePath("MyCard/Ded:visible")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/17/type = "value"
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/path = NodePath("MyCard:visible")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/18/type = "value"
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/path = NodePath("EnemyCard/Ded:visible")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/19/type = "value"
+tracks/19/imported = false
+tracks/19/enabled = true
+tracks/19/path = NodePath("EnemyCard:visible")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_48xo3"]
 resource_name = "begin_fight"
@@ -466,10 +519,222 @@ tracks/11/keys = {
 "values": [Vector2(136, -48), Vector2(136, 24), Vector2(136, 24), Vector2(136, -56)]
 }
 
+[sub_resource type="Animation" id="Animation_ofi5d"]
+resource_name = "jostle"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MyCard:position")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(376, 112), Vector2(384, 112), Vector2(368, 112), Vector2(384, 112), Vector2(368, 112), Vector2(376, 112)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("EnemyCard:position")
+tracks/1/interp = 0
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(48, 176), Vector2(56, 176), Vector2(40, 176), Vector2(56, 176), Vector2(40, 176), Vector2(48, 176)]
+}
+
+[sub_resource type="Animation" id="Animation_jroxx"]
+resource_name = "double_ded"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MyCard:position")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(376, 112), Vector2(384, 112), Vector2(368, 112), Vector2(384, 112), Vector2(368, 112), Vector2(376, 112)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("EnemyCard:position")
+tracks/1/interp = 0
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(48, 176), Vector2(56, 176), Vector2(40, 176), Vector2(56, 176), Vector2(40, 176), Vector2(48, 176)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MyCard/Ded:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("MyCard:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("EnemyCard/Ded:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("EnemyCard:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_1k8nn"]
+resource_name = "me_ded"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MyCard:position")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(376, 112), Vector2(384, 112), Vector2(368, 112), Vector2(384, 112), Vector2(368, 112), Vector2(376, 112)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("EnemyCard:position")
+tracks/1/interp = 0
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(48, 176), Vector2(56, 176), Vector2(40, 176), Vector2(56, 176), Vector2(40, 176), Vector2(48, 176)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MyCard/Ded:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("MyCard:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_jn2ja"]
+resource_name = "enemy_ded"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MyCard:position")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(376, 112), Vector2(384, 112), Vector2(368, 112), Vector2(384, 112), Vector2(368, 112), Vector2(376, 112)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("EnemyCard:position")
+tracks/1/interp = 0
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(48, 176), Vector2(56, 176), Vector2(40, 176), Vector2(56, 176), Vector2(40, 176), Vector2(48, 176)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("EnemyCard/Ded:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("EnemyCard:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_any8w"]
 _data = {
 "RESET": SubResource("Animation_qeyf2"),
 "begin_fight": SubResource("Animation_48xo3"),
+"double_ded": SubResource("Animation_jroxx"),
+"enemy_ded": SubResource("Animation_jn2ja"),
+"jostle": SubResource("Animation_ofi5d"),
+"me_ded": SubResource("Animation_1k8nn"),
 "monster_intro": SubResource("Animation_mdkic")
 }
 
@@ -483,6 +748,11 @@ outline_color = Color(0, 0, 0, 1)
 Button/colors/font_outline_color = Color(0, 0, 0, 1)
 Button/constants/outline_size = 8
 Button/fonts/font = ExtResource("4_d5xqc")
+
+[sub_resource type="LabelSettings" id="LabelSettings_kigex"]
+font = ExtResource("4_d5xqc")
+outline_size = 8
+outline_color = Color(0, 0, 0, 1)
 
 [node name="MainScene" type="Node2D" groups=["Main"]]
 script = ExtResource("1_mux2o")
@@ -618,6 +888,15 @@ label_settings = SubResource("LabelSettings_ibd74")
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Ded" type="TextureRect" parent="EnemyCard"]
+visible = false
+layout_mode = 0
+offset_left = -32.0
+offset_top = -16.0
+offset_right = 268.0
+offset_bottom = 284.0
+texture = ExtResource("9_fyph6")
+
 [node name="MyCard" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
@@ -748,6 +1027,15 @@ label_settings = SubResource("LabelSettings_ibd74")
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
+
+[node name="Ded" type="TextureRect" parent="MyCard"]
+visible = false
+layout_mode = 0
+offset_left = -40.0
+offset_top = -16.0
+offset_right = 260.0
+offset_bottom = 284.0
+texture = ExtResource("9_fyph6")
 
 [node name="Sidebar" type="Control" parent="."]
 custom_minimum_size = Vector2(640, 480)
@@ -1352,8 +1640,10 @@ text = "Defeat Antago's monster!"
 label_settings = SubResource("LabelSettings_28pp7")
 
 [node name="AnimePanel" type="TextureRect" parent="." groups=["Anime"]]
+visible = false
 offset_right = 40.0
 offset_bottom = 40.0
+mouse_filter = 2
 texture = ExtResource("27_6wfos")
 
 [node name="SkipButton" type="Button" parent="AnimePanel" groups=["PickOption"]]
@@ -1367,5 +1657,118 @@ script = ExtResource("11_ox5hm")
 value = "skip"
 
 [node name="dialogue_ui" parent="." instance=ExtResource("27_kkjj8")]
+
+[node name="DefeatEnding" type="TextureRect" parent="."]
+visible = false
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("30_5ymaa")
+
+[node name="Label" type="Label" parent="DefeatEnding"]
+layout_mode = 0
+offset_top = 24.0
+offset_right = 640.0
+offset_bottom = 155.0
+text = "DEFEATED"
+label_settings = ExtResource("31_801od")
+horizontal_alignment = 1
+
+[node name="Header2" type="Label" parent="DefeatEnding"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 232.0
+offset_right = 204.0
+offset_bottom = 305.0
+text = "Nah, you're just dead."
+label_settings = SubResource("LabelSettings_cxy8x")
+autowrap_mode = 3
+
+[node name="RetryButton" type="Button" parent="DefeatEnding" groups=["PickOption"]]
+layout_mode = 0
+offset_left = 256.0
+offset_top = 424.0
+offset_right = 386.0
+offset_bottom = 464.0
+theme = SubResource("Theme_ng7rp")
+text = "> Retry <"
+script = ExtResource("11_ox5hm")
+value = "retry"
+
+[node name="TieEnding" type="TextureRect" parent="."]
+visible = false
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("32_48q5l")
+
+[node name="Label" type="Label" parent="TieEnding"]
+layout_mode = 0
+offset_top = 24.0
+offset_right = 640.0
+offset_bottom = 155.0
+text = "TIE"
+label_settings = ExtResource("31_801od")
+horizontal_alignment = 1
+
+[node name="Header2" type="Label" parent="TieEnding"]
+layout_mode = 0
+offset_left = 232.0
+offset_top = 168.0
+offset_right = 412.0
+offset_bottom = 308.0
+text = "At least Antago didn't win."
+label_settings = SubResource("LabelSettings_cxy8x")
+autowrap_mode = 3
+
+[node name="RetryButton" type="Button" parent="TieEnding" groups=["PickOption"]]
+layout_mode = 0
+offset_left = 256.0
+offset_top = 424.0
+offset_right = 386.0
+offset_bottom = 464.0
+theme = SubResource("Theme_ng7rp")
+text = "> Retry <"
+script = ExtResource("11_ox5hm")
+value = "retry"
+
+[node name="VictoryEnding" type="TextureRect" parent="."]
+visible = false
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("33_6flua")
+
+[node name="Label" type="Label" parent="VictoryEnding"]
+layout_mode = 0
+offset_top = 24.0
+offset_right = 640.0
+offset_bottom = 155.0
+text = "VICTORY"
+label_settings = ExtResource("31_801od")
+horizontal_alignment = 1
+
+[node name="Header2" type="Label" parent="VictoryEnding"]
+layout_mode = 0
+offset_left = 88.0
+offset_top = 368.0
+offset_right = 544.0
+offset_bottom = 406.0
+text = "With the prize money from the tourney, Probo would go on to purchase the local casino, and then go to jail for tax fraud."
+label_settings = SubResource("LabelSettings_kigex")
+autowrap_mode = 3
+
+[node name="RetryButton" type="Button" parent="VictoryEnding" groups=["PickOption"]]
+layout_mode = 0
+offset_left = 256.0
+offset_top = 424.0
+offset_right = 386.0
+offset_bottom = 464.0
+theme = SubResource("Theme_ng7rp")
+text = "> Retry <"
+script = ExtResource("11_ox5hm")
+value = "retry"
+
+[node name="Flashbang" type="ColorRect" parent="." groups=["Flash"]]
+offset_right = 640.0
+offset_bottom = 480.0
+mouse_filter = 2
 
 [connection signal="text_changed" from="Sidebar/BG/NamePanel/TextEdit" to="." method="_on_text_edit_text_changed"]

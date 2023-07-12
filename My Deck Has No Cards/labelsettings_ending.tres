@@ -1,0 +1,9 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://cxnpgi71251a"]
+
+[ext_resource type="FontFile" uid="uid://b2bfp5yckdvr1" path="res://fonts/Lilian.ttf" id="1_3b8mt"]
+
+[resource]
+font = ExtResource("1_3b8mt")
+font_size = 128
+outline_size = 16
+outline_color = Color(0, 0, 0, 1)

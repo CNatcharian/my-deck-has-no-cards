@@ -1,16 +1,21 @@
 extends Node
 
 @onready var panel = get_tree().get_first_node_in_group("Anime")
+@onready var flashbang = get_tree().get_first_node_in_group("Flash")
 var shaking = false
-var is_ready = false
 
-signal readied
+func rebind():
+	panel = get_tree().get_first_node_in_group("Anime")
+	flashbang = get_tree().get_first_node_in_group("Flash")
+	panel.visible = false
+	flashbang.visible = true
+	flashbang.color = Color.TRANSPARENT
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	panel.visible = false
-	is_ready = true
-	readied.emit()
+	flashbang.visible = true
+	flashbang.color = Color.TRANSPARENT
 
 func _process(delta):
 	if shaking:
@@ -28,6 +33,11 @@ func shake(duration):
 	shaking = true
 	$Timer.wait_time = duration
 	$Timer.start()
+
+func flash():
+	var t = get_tree().create_tween()
+	t.tween_property(flashbang, "color", Color.WHITE, 0.05)
+	t.tween_property(flashbang, "color", Color.TRANSPARENT, 1)
 
 func _on_timer_timeout():
 	shaking = false

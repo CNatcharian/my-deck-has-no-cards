@@ -15,6 +15,9 @@ var outcome = "tie"
 
 @onready var main_scene = get_tree().get_first_node_in_group("Main")
 
+func rebind():
+	main_scene = get_tree().get_first_node_in_group("Main")
+
 func cost_too_great():
 	return probo_money < cost
 
@@ -50,16 +53,17 @@ func deal_damage():
 	match type_matchup():
 		-1:
 			mymod = 2
-			enemymod = 0.5
+			enemymod = 1
 		0:
 			mymod = 1
 			enemymod = 1
 		1:
-			mymod = 0.5
+			mymod = 1
 			enemymod = 2
 	enemy_health -= int(power * mymod)
 	health -= int(enemy_power * enemymod)
 	main_scene.deal_damage()
+	await main_scene.damage_dealt
 
 func pay_cost():
 	probo_money -= cost

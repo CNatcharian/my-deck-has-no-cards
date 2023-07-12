@@ -16,6 +16,7 @@ Antago: Sounds like you're just too [color=red]BROKE[/color], PROBOY!
 => defeat
 
 ~ type_matchup
+do GameState.pay_cost()
 Probo: My monster has entered the field. Now we shall duel!
 if GameState.type_matchup() == 0
 	Probo: And look! Our monsters share the same type!
@@ -23,7 +24,7 @@ if GameState.type_matchup() == 0
 else
 	Probo: And look! My monster is of the {{GameState.get_type()}} type!
 	if GameState.type_matchup() == 1:
-		Antago: Which is beaten by my {{GameState.get_enemy_type()}}-type monster, meaning I deal [color=red]DOUBLE DAMAGE[/color] to your monster!
+		Antago: Which is weak to my {{GameState.get_enemy_type()}}-type monster, meaning I deal [color=red]DOUBLE DAMAGE[/color] to your monster!
 		Probo: ...
 		Antago: Stoopid.
 	else
@@ -32,6 +33,7 @@ else
 Probo: And now, I attack with my monster, [color=orange]{{GameState.cardname}}[/color]!
 while GameState.both_are_alive()
 	do GameState.deal_damage()
+	do wait(0.5)
 	if GameState.both_are_alive()
 		Probo: And they shall do it again!
 
@@ -45,33 +47,58 @@ elif GameState.dead()
 
 ~ tie
 set GameState.outcome = "tie"
-# shot 12: 
+# shot 12: double shot
+do Anime.shot("12")
 Probo: See! My monster has defeated yours!
 Antago: Au contraire! My monster has ALSO defeated YOURS!
-# shot 13: probo shocked
+# show probo sad again
+do Anime.shot("9")
 Probo: No... This... [shake]can't be![/shake]
-# shot 14: antago cackles
+# shot 13: antago cackles
+do Anime.shot("13")
+do Anime.shake(0.2)
 Antago: [shake]AAAAAHAHAHAHA![/shake] Now I can finally end this with...
 # shot 14-2,3: antago draws no cards
+do Anime.shot("13-2")
+do wait(1.0)
+do Anime.shot("13-3")
+do wait(1.0)
 => END
 
 ~ victory
 set GameState.outcome = "victory"
-# shot 15: probo cheers
+# shot 14: probo cheers
+do Anime.shot("14")
 Probo: Huzzah! My monster, [color=orange]{{GameState.cardname}}[/color] has won!
 Probo: And they won with exclusively the power of friendship and nothing else!
-# shot 16: antago malds
+# shot 15: antago malds
+do Anime.shot("15")
+do Anime.shake(0.4)
 Antago: [shake]AAAAAAGH![/shake] IT'S NOT POSSIBLE! NO ONE'S EVER SUMMONED...
+do Anime.shot("15-2")
+Antago: wait.
 # shot 16-2,3: antago stops, then squints at card
+do Anime.shot("16")
+do wait(0.75)
+do Anime.shot("16-2")
+do wait(0.1)
+do Anime.shot("16-3")
+do Anime.shake(0.2)
+do wait(1.5)
 # 17: closeup antago DISGUSTED
-# 18: behind antago, probo reaches for bat
-# 18-2: WHACK 
+do Anime.shot("17")
+do wait(1.5)
+# 18: prepare for hair poke
+do Anime.shot("18")
+do wait(1.0)
 => END
 
 ~ defeat
 set GameState.outcome = "defeat"
 do Anime.shot("9")
 Probo: I'm sorry [color=orange]{{GameState.cardname}}[/color]... everyone... I have failed you.
-# shot 19: antago points maniacally
-Antago: Go, {{GameState.enemy_cardname}}! Send him to the BAD PLACE!!!
+# shot 13: antago points maniacally
+do Anime.shot("13")
+do Anime.shake(0.2)
+Antago: Now, {{GameState.enemy_cardname}}! Send him to the BAD PLACE!!!
 => END

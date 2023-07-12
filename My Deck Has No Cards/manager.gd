@@ -16,6 +16,8 @@ enum State {
 	TIE
 }
 
+signal damage_dealt
+
 @export var state = State.OPENING
 @onready var animator = $AnimationPlayer
 
@@ -23,6 +25,10 @@ enum State {
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	# prevent errors upon restarting scene
+	Anime.rebind()
+	GameState.rebind()
+	# randomize
 	randomize_vars()
 	# start listening to all option buttons
 	get_tree().call_group("PickOption", "hook_to_manager", self)
@@ -54,17 +60,16 @@ func randomize_vars():
 	# cost options
 	set_option_group("Cost", 2, 7, GameState.probo_money, false)
 	# power options
-	set_option_group("Power", 1, 6, int(GameState.enemy_health / 2))
+	set_option_group("Power", 2, 11, int(GameState.enemy_health / 2))
 	# health options
-	set_option_group("Health", 3, 6, int(GameState.enemy_power))
+	set_option_group("Health", 2, 11, int(GameState.enemy_power))
 
 func set_option_group(groupname, min, max, guarantee, higher = true):
 	var options = get_tree().get_nodes_in_group(groupname)
-	var values = []
-	for o in options:
-		var v = randi_range(min, max)
-		o.value = v
-		values.append(v)
+	var values = range(min, max)
+	values.shuffle()
+	for i in 4:
+		options[i].value = values[i]
 	if higher:
 		if values.all(func(x): return x <= guarantee):
 			var rindex = randi_range(0, 3)
@@ -113,12 +118,14 @@ func change_state(new_state: State):
 			animator.play("begin_fight")
 			await animator.animation_finished
 			dialogue_ui.show_dlg("resolve")
+			await dialogue_ui.dialogue_ended
+			goto_ending()
 		State.DEFEAT:
-			pass
+			$DefeatEnding.visible = true
 		State.VICTORY:
-			pass
+			$VictoryEnding.visible = true
 		State.TIE:
-			pass
+			$TieEnding.visible = true
 		_:
 			print("unimplemented state")
 
@@ -126,6 +133,10 @@ func on_choose_option(value):
 	print("option received")
 	match state:
 		State.OPENING:
+			if value is String and value == "skip":
+				Anime.end()
+				dialogue_ui.hide_dlg()
+		State.RESOLVE:
 			if value is String and value == "skip":
 				Anime.end()
 				dialogue_ui.hide_dlg()
@@ -173,18 +184,44 @@ func on_choose_option(value):
 				change_state(State.RESOLVE)
 			else:
 				print("not done, do nothing")
+		State.DEFEAT:
+			if value == "retry":
+				get_tree().reload_current_scene()
+		State.VICTORY:
+			if value == "retry":
+				get_tree().reload_current_scene()
+		State.TIE:
+			if value == "retry":
+				get_tree().reload_current_scene()
 		_:
 			print("unimplemented state for option")
 
 func deal_damage():
 	$EnemyCard/BG/HealthIcon/Number.text = str(GameState.enemy_health)
 	$MyCard/BG/HealthIcon/Number.text = str(GameState.health)
-	if GameState.enemy_health <= 0 and GameState.health <= 0:
+	if GameState.dead() and GameState.enemy_dead():
 		animator.play("double_ded")
-	elif GameState.health <= 0:
+	elif GameState.dead():
 		animator.play("me_ded")
-	elif GameState.enemy_health <= 0:
+	elif GameState.enemy_dead():
 		animator.play("enemy_ded")
+	else:
+		animator.play("jostle")
+	await animator.animation_finished
+	damage_dealt.emit()
 
 func pay_cost():
 	$MyHUD/CostIcon2/Number.text = str(GameState.probo_money)
+
+func goto_ending():
+	Anime.end()
+	Anime.flash()
+	match GameState.outcome:
+		"tie":
+			change_state(State.TIE)
+		"victory":
+			change_state(State.VICTORY)
+		"defeat":
+			change_state(State.DEFEAT)
+		_:
+			print("invalid outcome " + str(GameState.outcome))
